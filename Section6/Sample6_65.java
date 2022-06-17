@@ -62,9 +62,9 @@ class Member {
     this.magicPoint = magicPoint;
   }
 
-	void addState(StateType stateType) {
-  this.state = stateType;
-}
+  void addState(StateType stateType) {
+    this.state = stateType;
+  }
 }
 
 /** ダメージロジックを切り替えるクラス */
@@ -77,8 +77,8 @@ class ApplyDamageLogic {
     this.member = member;
   }
 
-	/** damagesのコレクションを生成するメソッド */
-	void setDamages() {
+/** damagesのコレクションを生成するメソッド */
+void setDamages() {
   // 中略
   final HitPointDamage hitPointDamage = new HitPointDamage(member);
   final MagicPointDamage magicPointDamage = new MagicPointDamage(member);
