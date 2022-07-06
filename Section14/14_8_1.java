@@ -1,32 +1,9 @@
+
+
 package chapter14_2;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * 配送管理クラス
- */
-class DeliveryManager {
-	/**
-	 * 配送料を返す。
-	 * 
-	 * @param products 配送対象の商品リスト
-	 * @return 配送料
-	 */
-	public static int deliveryCharge(List<Product> products) {
-		int charge = 0;
-		int totalPrice = 0;
-		for (Product each : products) {
-			totalPrice += each.price;
-		}
-		if (totalPrice < 2000) {
-			charge = 500;
-		} else {
-			charge = 0;
-		}
-		return charge;
-	}
-}
 
 class Product {
 	final int id;
@@ -40,9 +17,11 @@ class Product {
 	}
 }
 
-//買い物かご
+/**
+ * 買い物かご
+ */
 class ShoppingCart {
-	final List<Product> products;
+	private final List<Product> products;
 
 	ShoppingCart() {
 		products = new ArrayList<Product>();
@@ -52,40 +31,59 @@ class ShoppingCart {
 		this.products = products;
 	}
 
+	/**
+	 * 買い物かごに商品を追加する
+	 * 
+	 * @param product 商品
+	 * @return 商品が追加された買い物かご
+	 */
 	ShoppingCart add(final Product product) {
 		final List<Product> adding = new ArrayList<>(products);
 		adding.add(product);
 		return new ShoppingCart(adding);
 	}
+
+	/**
+	 * @return 商品の合計金額
+	 */
+	int totalPrice() {
+		int amount = 0;
+		for (Product each : products) {
+			amount += each.price;
+		}
+		return amount;
+	}
 }
 
+/**
+ * 配送料
+ */
 class DeliveryCharge {
+	private static final int CHARGE_FREE_THRESHOLD = 2000;
+	private static final int PAY_CHARGE = 500;
+	private static final int CHARGE_FREE = 0;
 	final int amount;
 
+	/**
+	 * @param shoppingCart 買い物かご
+	 */
 	DeliveryCharge(final ShoppingCart shoppingCart) {
-		int totalPrice = shoppingCart.products.get(0).price + shoppingCart.products.get(1).price;
-		if (totalPrice < 2000) {
-			amount = 500;
-		} else {
-			amount = 0;
-		}
+		amount = (shoppingCart.totalPrice() < CHARGE_FREE_THRESHOLD) ? PAY_CHARGE : CHARGE_FREE;
 	}
 }
 
 class Sample14_8 {
 
 	public static void main(String[] args) {
-//		System.out.println("hoge");
+		System.out.println("hoge");
 
-		List<Product> list = new ArrayList<Product>();
-		list.add(new Product(1, "Apple", 100));
-		list.add(new Product(2, "Banana", 200));
-		list.add(new Product(3, "Orange", 10000));
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart.add(new Product(1, "Apple", 100));
+		shoppingCart.add(new Product(2, "Banana", 200));
+		shoppingCart.add(new Product(3, "Orange", 10000));
 
-//		DeliveryManager deliberyManager = new DeliveryManager();
-//		System.out.println(deliberyManager.deliveryCharge(list));
+		DeliveryCharge deliberyCharge = new DeliveryCharge(shoppingCart);
+		System.out.println(deliberyCharge.amount);
 
-		// 違った、Staticやん
-		System.out.println(DeliveryManager.deliveryCharge(list));
 	}
 }
