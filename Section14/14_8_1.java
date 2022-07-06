@@ -1,3 +1,5 @@
+package chapter14_2;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,38 @@ class Product {
 	}
 }
 
+//買い物かご
+class ShoppingCart {
+	final List<Product> products;
+
+	ShoppingCart() {
+		products = new ArrayList<Product>();
+	}
+
+	private ShoppingCart(List<Product> products) {
+		this.products = products;
+	}
+
+	ShoppingCart add(final Product product) {
+		final List<Product> adding = new ArrayList<>(products);
+		adding.add(product);
+		return new ShoppingCart(adding);
+	}
+}
+
+class DeliveryCharge {
+	final int amount;
+
+	DeliveryCharge(final ShoppingCart shoppingCart) {
+		int totalPrice = shoppingCart.products.get(0).price + shoppingCart.products.get(1).price;
+		if (totalPrice < 2000) {
+			amount = 500;
+		} else {
+			amount = 0;
+		}
+	}
+}
+
 class Sample14_8 {
 
 	public static void main(String[] args) {
@@ -46,8 +80,8 @@ class Sample14_8 {
 		List<Product> list = new ArrayList<Product>();
 		list.add(new Product(1, "Apple", 100));
 		list.add(new Product(2, "Banana", 200));
-		list.add(new Product(3, "Orange", 1000));
-		
+		list.add(new Product(3, "Orange", 10000));
+
 //		DeliveryManager deliberyManager = new DeliveryManager();
 //		System.out.println(deliberyManager.deliveryCharge(list));
 
