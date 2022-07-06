@@ -47,8 +47,11 @@ class Sample14_8 {
 		list.add(new Product(1, "Apple", 100));
 		list.add(new Product(2, "Banana", 200));
 		list.add(new Product(3, "Orange", 1000));
+		
+//		DeliveryManager deliberyManager = new DeliveryManager();
+//		System.out.println(deliberyManager.deliveryCharge(list));
 
-		DeliveryManager deliberyManager = new DeliveryManager();
-		System.out.println(deliberyManager.deliveryCharge(list));
+		// 違った、Staticやん
+		System.out.println(DeliveryManager.deliveryCharge(list));
 	}
 }
