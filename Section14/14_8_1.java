@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,23 +26,29 @@ class DeliveryManager {
 	}
 }
 
-
 class Product {
-	  final int id;
-	  final String name;
-	  final int price;
+	final int id;
+	final String name;
+	final int price;
 
-	  Product(final int id, final String name, final int price) {
-	    this.id = id;
-	    this.name = name;
-	    this.price = price;
-	  }
+	Product(final int id, final String name, final int price) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
 	}
-
+}
 
 class Sample14_8 {
 
 	public static void main(String[] args) {
-		System.out.println("hoge");
+//		System.out.println("hoge");
+
+		List<Product> list = new ArrayList<Product>();
+		list.add(new Product(1, "Apple", 100));
+		list.add(new Product(2, "Banana", 200));
+		list.add(new Product(3, "Orange", 1000));
+
+		DeliveryManager deliberyManager = new DeliveryManager();
+		System.out.println(deliberyManager.deliveryCharge(list));
 	}
 }
